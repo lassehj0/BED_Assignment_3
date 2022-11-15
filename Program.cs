@@ -12,7 +12,18 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("WaiterOnly", policy => policy.RequireClaim("Waiter"));
+    options.AddPolicy("ReceptionOnly", policy => policy.RequireClaim("Reception"));
+
+});
+
 builder.Services.AddRazorPages();
+
 
 var app = builder.Build();
 
@@ -37,5 +48,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
 
 app.Run();
