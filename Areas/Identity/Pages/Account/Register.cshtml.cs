@@ -176,5 +176,10 @@ namespace Assignment3.Areas.Identity.Pages.Account
             }
             return (IUserEmailStore<IdentityUser>)_userStore;
         }
+        
     }
+    
+    
 }
+
+

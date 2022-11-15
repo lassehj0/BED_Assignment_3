@@ -24,7 +24,6 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddRazorPages();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
