@@ -22,7 +22,7 @@ namespace Assignment3.Controllers
         public CheckInsController(ApplicationDbContext context)
         {
             _context = context;
-            TypeAdapterConfig<CheckIns, CheckInsDTO>.NewConfig();
+            TypeAdapterConfig<List<CheckIns>, List<CheckInsDTO>>.NewConfig();
             TypeAdapterConfig<CheckInsDTO, CheckIns>.NewConfig();
         }
 
@@ -34,16 +34,16 @@ namespace Assignment3.Controllers
         }
 
         [HttpGet("{Date}")]
-        public async Task<ActionResult<CheckInsDTO>> GetCheckInsDTO(int date)
+        public async Task<ActionResult<List<CheckInsDTO>>> GetCheckInsDTO(DateTime date)
         {
-            var checkIns = await _context.CheckIns.FindAsync(date);
+            var checkIns = _context.CheckIns.Where(c => c.Date == date).ToListAsync();
 
             if (checkIns == null)
             {
                 return NotFound();
             }
 
-            return checkIns.Adapt<CheckInsDTO>();
+            return checkIns.Adapt<List<CheckInsDTO>>();
         }
 
         // POST: api/CheckIns
