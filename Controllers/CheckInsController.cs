@@ -10,6 +10,7 @@ using Assignment3.Models;
 using MapsterMapper;
 using Mapster;
 using Assignment3.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Assignment3.Controllers
 {
@@ -27,6 +28,7 @@ namespace Assignment3.Controllers
         }
 
         // GET: api/CheckIns
+        [Authorize("ReceptionOnly")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CheckIns>>> GetCheckIns()
         {
@@ -48,6 +50,7 @@ namespace Assignment3.Controllers
 
         // POST: api/CheckIns
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize("WaiterOnly")]
         [HttpPost]
         public async Task<ActionResult<CheckIns>> PostCheckIns(CheckInsDTO checkInsDTO)
         {
