@@ -21,7 +21,13 @@ namespace Assignment3.Pages
         {
             _context = context;
         }
-    
+
+        [JSInvokable]
+        public async Task Init()
+        {
+            _hubConnection.StartAsync();
+        }
+
         public IActionResult OnGet()
         {
             return Page();
@@ -48,4 +54,19 @@ namespace Assignment3.Pages
 			return Page();
 		}
 	}
+
+    private async Task ConnectToServer()
+    {
+        // keep trying until we manage to connect
+        while (true)
+        {
+            try
+            {
+                await CreateHubConnection();
+                await this.Connection.StartAsync();
+                return; // yay! connected
+            }
+            catch (Exception e) { /* bugger! */}
+        }
+    }
 }

@@ -2,11 +2,25 @@
 
 namespace Assignment3.Data
 {
-	public class DataHub : Hub
+    public interface IData
+    {
+        Task SendData(string user, string data);
+    }
+	public class DataHub : Hub<IData>
 	{
-        public async Task Send()
+        public async Task Send(string user, string data)
         {
-            await Clients.All.SendAsync("ReceiveMessage");
+            await Clients.All.SendData(user, data);
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            return base.OnConnectedAsync(); 
+        }
+
+        public override Task OnDisconnectedAsync(Exception exception)
+        {
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }

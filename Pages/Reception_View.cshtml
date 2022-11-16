@@ -1,4 +1,5 @@
 ﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Assignment3.Pages.Reception_ViewModel
 
 @{
@@ -11,44 +12,45 @@
     <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].RoomNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].Adults)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].Children)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].Date)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.CheckIn) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adults)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Children)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.CheckIn[0].RoomNumber)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CheckIn[0].Adults)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CheckIn[0].Children)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.CheckIn[0].Date)
+		</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var item in Model.CheckIn) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.RoomNumber)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Adults)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Children)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Date)
+			</td>
+			<td>
+				<a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+				<a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+				<a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+			</td>
+		</tr>
+	}
+	</tbody>
 </table>
+
