@@ -12,10 +12,13 @@ namespace Assignment3.Pages
     public class ReceptionModel : PageModel
     {
         private readonly Assignment3.Data.ApplicationDbContext _context;
+        private readonly Assignment3.Data.DataHub _dataHub;
 
-        public ReceptionModel(Assignment3.Data.ApplicationDbContext context)
+
+        public ReceptionModel(Assignment3.Data.ApplicationDbContext context, Assignment3.Data.DataHub dataHub)
         {
             _context = context;
+            _dataHub = dataHub;
             TypeAdapterConfig<TotalBookingsPerDay_Reception_DTO, TotalBookingsPerDay>.NewConfig().IgnoreNullValues(true);
 
         }

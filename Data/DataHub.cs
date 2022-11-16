@@ -6,7 +6,7 @@ namespace Assignment3.Data
 	{
         public async Task Send(string message)
         {
-            await Clients.All.SendAsync("Send", message);
+            await Clients.All.SendAsync("RecieveMessage");
         }
         
     }

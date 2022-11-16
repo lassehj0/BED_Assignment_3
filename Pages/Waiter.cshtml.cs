@@ -14,12 +14,14 @@ namespace Assignment3.Pages
     public class WaiterModel : PageModel
     {
         private readonly Assignment3.Data.ApplicationDbContext _context;
+        private readonly Assignment3.Data.DataHub _dataHub;
 
-        public WaiterModel(Assignment3.Data.ApplicationDbContext context)
+        public WaiterModel(Assignment3.Data.ApplicationDbContext context, Assignment3.Data.DataHub dataHub)
         {
             _context = context;
+            _dataHub = dataHub;
         }
-
+    
         public IActionResult OnGet()
         {
             return Page();
