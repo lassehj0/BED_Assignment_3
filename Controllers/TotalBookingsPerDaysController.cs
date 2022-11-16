@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Assignment3.Data;
 using Assignment3.Models;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Assignment3.Controllers
 {
@@ -20,13 +21,15 @@ namespace Assignment3.Controllers
         public TotalBookingsPerDaysController(ApplicationDbContext context)
         {
             _context = context;
-            TypeAdapterConfig<TotalBookingsPerDay, TotalBookingsPerDay_DTO>.NewConfig().IgnoreNullValues(true);
+            TypeAdapterConfig<TotalBookingsPerDay, TotalBookingsPerDay_Kitchen_DTO>.NewConfig().IgnoreNullValues(true);
+            TypeAdapterConfig<TotalBookingsPerDay_Reception_DTO, TotalBookingsPerDay>.NewConfig().IgnoreNullValues(true);
+
 
         }
 
         // GET: api/TotalBookingsPerDays
         [HttpGet]
-        public async Task<ActionResult<TotalBookingsPerDay_DTO>> GetTotalBookingsPerDay()
+        public async Task<ActionResult<TotalBookingsPerDay_Kitchen_DTO>> GetTotalBookingsPerDay()
         {
             List<TotalBookingsPerDay> listOfBookingsPerDays = await _context.TotalBookingsPerDay.OrderByDescending(x => x.Date).ToListAsync();
 
@@ -36,7 +39,7 @@ namespace Assignment3.Controllers
                 return NotFound();
             }
             
-            var result = latestBooking.Adapt<TotalBookingsPerDay_DTO>();
+            var result = latestBooking.Adapt<TotalBookingsPerDay_Kitchen_DTO>();
             result.TotalGuests = result.TotalAdults + result.TotalChildren;
 
             List<CheckIns> checkInsList = await _context.CheckIns.Where(x => x.Date == latestBooking.Date).ToListAsync();
@@ -56,7 +59,7 @@ namespace Assignment3.Controllers
 
         // GET: api/TotalBookingsPerDays/5
         [HttpGet("{date}")]
-        public async Task<ActionResult<TotalBookingsPerDay_DTO>> GetTotalBookingsPerDay(DateTime date)
+        public async Task<ActionResult<TotalBookingsPerDay_Kitchen_DTO>> GetTotalBookingsPerDay(DateTime date)
         {
 
             var latestBooking = _context.CheckIns.Where(x => x.Date == date).FirstOrDefault();
@@ -64,7 +67,7 @@ namespace Assignment3.Controllers
             {
                 return NotFound();
             }
-            var result = latestBooking.Adapt<TotalBookingsPerDay_DTO>();
+            var result = latestBooking.Adapt<TotalBookingsPerDay_Kitchen_DTO>();
 
             List<CheckIns> checkInsList = await _context.CheckIns.Where(x => x.Date == latestBooking.Date).ToListAsync();
 
@@ -113,9 +116,12 @@ namespace Assignment3.Controllers
 
         // POST: api/TotalBookingsPerDays
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Authorize("ReceptionOnly")]
         [HttpPost]
-        public async Task<ActionResult<TotalBookingsPerDay>> PostTotalBookingsPerDay(TotalBookingsPerDay totalBookingsPerDay)
+        public async Task<ActionResult<TotalBookingsPerDay>> PostTotalBookingsPerDay(TotalBookingsPerDay_Reception_DTO totalBookingsPerDay_DTO)
         {
+
+            var totalBookingsPerDay = totalBookingsPerDay_DTO.Adapt<TotalBookingsPerDay>();
             _context.TotalBookingsPerDay.Add(totalBookingsPerDay);
             await _context.SaveChangesAsync();
 

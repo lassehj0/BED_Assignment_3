@@ -2,7 +2,7 @@
 
 namespace Assignment3.Models
 {
-	public class TotalBookingsPerDay_DTO
+	public class TotalBookingsPerDay_Kitchen_DTO
 	{
 
 		
