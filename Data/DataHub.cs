@@ -2,7 +2,7 @@
 
 namespace Assignment3.Data
 {
-    interface IData
+    public interface IData
     {
         Task SendData(string user, string data);
     }
