@@ -29,6 +29,29 @@ namespace Assignment3.Data
                 }
             }
 
-        
+        public static void SeedReceptionist(UserManager<IdentityUser> userManager)
+        {
+            const string ReceptionistEmail = "receptionist@hotelcalifornia.com";
+            const string ReceptionistPassword = "ReceptionistPassword1234#";
+            if (userManager == null)
+                throw new ArgumentNullException(nameof(userManager));
+            if (userManager.FindByNameAsync(ReceptionistEmail).Result == null)
+            {
+                var user = new IdentityUser();
+                user.UserName = ReceptionistEmail;
+                user.Email = ReceptionistEmail;
+                user.EmailConfirmed = true;
+                IdentityResult result = userManager.CreateAsync(user, ReceptionistPassword).Result;
+
+                if (result.Succeeded)
+                {
+                    var ReceptionistUser = userManager.FindByNameAsync(ReceptionistEmail).Result;
+                    var claim = new Claim("Receptionist", "true");
+                    var claimAdded = userManager.AddClaimAsync(ReceptionistUser, claim).Result;
+                }
+            }
+        }
+
+
     }
 }

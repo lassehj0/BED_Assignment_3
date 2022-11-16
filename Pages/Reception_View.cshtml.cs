@@ -7,25 +7,27 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Assignment3.Data;
 using Assignment3.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Assignment3.Pages
 {
-    public class IndexModel : PageModel
+    [Authorize("ReceptionOnly")]
+    public class Reception_ViewModel : PageModel
     {
         private readonly Assignment3.Data.ApplicationDbContext _context;
 
-        public IndexModel(Assignment3.Data.ApplicationDbContext context)
+        public Reception_ViewModel(Assignment3.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<TotalBookingsPerDay> TotalBookingsPerDay { get;set; } = default!;
+        public IList<CheckIn> CheckIn { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.TotalBookingsPerDay != null)
+            if (_context.CheckIns != null)
             {
-                TotalBookingsPerDay = await _context.TotalBookingsPerDay.ToListAsync();
+                CheckIn = await _context.CheckIns.Where(c => c.Date.Date == DateTime.Today.Date).ToListAsync();
             }
         }
     }

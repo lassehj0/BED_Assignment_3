@@ -36,7 +36,7 @@ namespace Assignment3.Pages
             {
                 return Page();
             }
-
+            CheckIn.Date = DateTime.Now;
             _context.CheckIns.Add(CheckIn);
             await _context.SaveChangesAsync();
 

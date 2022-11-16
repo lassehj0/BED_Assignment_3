@@ -25,7 +25,7 @@ namespace Assignment3.Pages
         }
 
         [BindProperty]
-        public CheckIn CheckIn { get; set; }
+        public TotalBookingsPerDay TotalBookingsPerDay { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
@@ -36,7 +36,7 @@ namespace Assignment3.Pages
                 return Page();
             }
 
-            _context.CheckIns.Add(CheckIn);
+            _context.TotalBookingsPerDay.Add(TotalBookingsPerDay);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -14,34 +14,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].RoomNumber)
+                @Html.DisplayNameFor(model => model.TotalBookingsPerDay[0].Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].Adults)
+                @Html.DisplayNameFor(model => model.TotalBookingsPerDay[0].TotalAdults)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].Children)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].Date)
+                @Html.DisplayNameFor(model => model.TotalBookingsPerDay[0].TotalChildren)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.CheckIn) {
+@foreach (var item in Model.TotalBookingsPerDay) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RoomNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adults)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Children)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAdults)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalChildren)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

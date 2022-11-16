@@ -19,23 +19,23 @@ namespace Assignment3.Pages
             _context = context;
         }
 
-      public CheckIn CheckIn { get; set; }
+      public TotalBookingsPerDay TotalBookingsPerDay { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.CheckIns == null)
+            if (id == null || _context.TotalBookingsPerDay == null)
             {
                 return NotFound();
             }
 
-            var checkin = await _context.CheckIns.FirstOrDefaultAsync(m => m.Id == id);
-            if (checkin == null)
+            var totalbookingsperday = await _context.TotalBookingsPerDay.FirstOrDefaultAsync(m => m.Id == id);
+            if (totalbookingsperday == null)
             {
                 return NotFound();
             }
             else 
             {
-                CheckIn = checkin;
+                TotalBookingsPerDay = totalbookingsperday;
             }
             return Page();
         }
