@@ -14,53 +14,58 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].TotalGuests)
+                @Html.DisplayNameFor(model => model.CheckIn.TotalGuests)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].TotalAdults)
+                @Html.DisplayNameFor(model => model.CheckIn.TotalAdults)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].TotalChildren)
+                @Html.DisplayNameFor(model => model.CheckIn.TotalChildren)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].CheckedInAdults)
+                @Html.DisplayNameFor(model => model.CheckIn.CheckedInAdults)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].CheckedInChildren)
+                @Html.DisplayNameFor(model => model.CheckIn.CheckedInChildren)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].RemainingGuests)
+                @Html.DisplayNameFor(model => model.CheckIn.RemainingGuests)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].RemainingAdults)
+                @Html.DisplayNameFor(model => model.CheckIn.RemainingAdults)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CheckIn[0].RemainingChildren)
+                @Html.DisplayNameFor(model => model.CheckIn.RemainingChildren)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.CheckIn) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.RoomNumber)
+                @Html.DisplayFor(model => model.CheckIn.TotalGuests)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Adults)
+                @Html.DisplayFor(model => model.CheckIn.TotalAdults)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Children)
+                @Html.DisplayFor(model => model.CheckIn.TotalChildren)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Date)
+                @Html.DisplayFor(model => model.CheckIn.CheckedInAdults)
             </td>
             <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(model => model.CheckIn.CheckedInChildren)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CheckIn.RemainingGuests)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CheckIn.RemainingAdults)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.CheckIn.RemainingChildren)
             </td>
         </tr>
-}
     </tbody>
 </table>

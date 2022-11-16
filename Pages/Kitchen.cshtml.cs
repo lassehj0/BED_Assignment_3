@@ -15,7 +15,8 @@ namespace Assignment3.Pages
 			_context = context;
 		}
 
-		public TotalBookingsPerDay_Kitchen_DTO CheckIn { get; set; } = default!;
+		public TotalBookingsPerDay_Kitchen_DTO CheckIn { get; set; } = new TotalBookingsPerDay_Kitchen_DTO();
+
 
 		[BindProperty]
 		public DateTime Day { get; set; }
@@ -24,7 +25,7 @@ namespace Assignment3.Pages
         {
 			Day = day.Date;
 
-            if (_context.CheckIns != null)
+            if (_context.CheckIns != null && _context.TotalBookingsPerDay != null)
             {
 				int expectedAdultGuests = _context.TotalBookingsPerDay
 					.Where(c => c.Date == Day)
