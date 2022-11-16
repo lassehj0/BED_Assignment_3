@@ -1,9 +1,10 @@
 ﻿@page
-@model Assignment3.Pages.KitchenModel
+@model Assignment3.Controllers.CheckInsController
 @{
 	ViewData["Title"] = "Kitchen";
 }
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <div class="text-center">
-	<h1 class="display-4">Kitchen</h1>
-	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<input type="date" value="@{new DateTime();}" />
+	<p id="getit">@Model.GetCheckIns()</p>
 </div>
