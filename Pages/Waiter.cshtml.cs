@@ -7,6 +7,8 @@ using Assignment3.DTO;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Assignment3.Data;
+using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.JSInterop;
 
 namespace Assignment3.Pages
 {
@@ -14,14 +16,25 @@ namespace Assignment3.Pages
     public class WaiterModel : PageModel
     {
         private readonly Assignment3.Data.ApplicationDbContext _context;
-        private readonly Assignment3.Data.DataHub _dataHub;
 
-        public WaiterModel(Assignment3.Data.ApplicationDbContext context, Assignment3.Data.DataHub dataHub)
+        private HubConnection? _hubConnection = new HubConnectionBuilder()
+            .WithUrl(new Uri("https://localhost:7257/DataHub"))
+            .WithAutomaticReconnect()
+            .Build();
+
+
+
+        public WaiterModel(Assignment3.Data.ApplicationDbContext context)
         {
             _context = context;
-            _dataHub = dataHub;
         }
-    
+
+        [JSInvokable]
+        public async Task Init()
+        {
+            _hubConnection.StartAsync();
+        }
+
         public IActionResult OnGet()
         {
             return Page();
@@ -40,10 +53,27 @@ namespace Assignment3.Pages
 			}
 			CheckIn.Date = DateTime.Now;
 			_context.CheckIns.Add(CheckIn);
-			await _context.SaveChangesAsync();
-			await dh.Send();
 
-			return RedirectToPage("./Index");
+            await _context.SaveChangesAsync();
+
+            await _hubConnection.InvokeAsync("ReceiveMessage");
+
+            return RedirectToPage("./Index");
 		}
 	}
+
+    private async Task ConnectToServer()
+    {
+        // keep trying until we manage to connect
+        while (true)
+        {
+            try
+            {
+                await CreateHubConnection();
+                await this.Connection.StartAsync();
+                return; // yay! connected
+            }
+            catch (Exception e) { /* bugger! */}
+        }
+    }
 }

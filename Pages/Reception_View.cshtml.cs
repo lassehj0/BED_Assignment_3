@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Assignment3.Data;
 using Assignment3.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+
 
 namespace Assignment3.Pages
 {
@@ -15,12 +17,12 @@ namespace Assignment3.Pages
     public class Reception_ViewModel : PageModel
     {
         private readonly Assignment3.Data.ApplicationDbContext _context;
-
         public Reception_ViewModel(Assignment3.Data.ApplicationDbContext context)
         {
             _context = context;
         }
 
+        
         public IList<CheckIn> CheckIn { get;set; } = default!;
 
         public async Task OnGetAsync()
@@ -28,6 +30,7 @@ namespace Assignment3.Pages
             if (_context.CheckIns != null)
             {
                 CheckIn = await _context.CheckIns.Where(c => c.Date.Date == DateTime.Today.Date).ToListAsync();
+                
             }
         }
     }

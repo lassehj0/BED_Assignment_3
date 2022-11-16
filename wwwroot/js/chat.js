@@ -1,6 +1,6 @@
 ﻿"use strict";
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/DataHub").build();
 
 connection.on("ReceiveMessage", () => {
 	if (window.location === "https://localhost:7257/Kitchen")

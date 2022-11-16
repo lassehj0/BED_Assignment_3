@@ -47,7 +47,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapHub<DataHub>("/DataHub");
+
 
 app.MapRazorPages();
 using (var scope = app.Services.CreateScope())
@@ -60,6 +60,7 @@ using (var scope = app.Services.CreateScope())
     if (userManager != null)
         SeedUsers.SeedReceptionist(userManager);
     else throw new Exception("Unable to get UserManager!");
+    
 }
-
+app.MapHub<DataHub>("/DataHub");
 app.Run();

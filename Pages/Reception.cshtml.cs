@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Mapster;
 using Assignment3.DTO;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Assignment3.Pages
 {
@@ -12,13 +13,14 @@ namespace Assignment3.Pages
     public class ReceptionModel : PageModel
     {
         private readonly Assignment3.Data.ApplicationDbContext _context;
-        private readonly Assignment3.Data.DataHub _dataHub;
+        private HubConnection _hubConnection = new HubConnectionBuilder()
+            .WithUrl(new Uri("https://localhost:7257/DataHub"))
+            .WithAutomaticReconnect()
+            .Build();
 
-
-        public ReceptionModel(Assignment3.Data.ApplicationDbContext context, Assignment3.Data.DataHub dataHub)
+        public ReceptionModel(Assignment3.Data.ApplicationDbContext context)
         {
             _context = context;
-            _dataHub = dataHub;
             TypeAdapterConfig<TotalBookingsPerDay_Reception_DTO, TotalBookingsPerDay>.NewConfig().IgnoreNullValues(true);
 
         }
@@ -47,6 +49,9 @@ namespace Assignment3.Pages
             }
             _context.TotalBookingsPerDay.Add(TBookings);
             await _context.SaveChangesAsync();
+            await _hubConnection.StartAsync();
+            await _hubConnection.InvokeAsync("ReceiveMessage");
+
 
             return RedirectToPage("./Index");
         }
