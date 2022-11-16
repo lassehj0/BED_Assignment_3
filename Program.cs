@@ -18,7 +18,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("WaiterOnly", policy => policy.RequireClaim("Waiter"));
-    options.AddPolicy("ReceptionOnly", policy => policy.RequireClaim("Reception"));
+    options.AddPolicy("ReceptionOnly", policy => policy.RequireClaim("Receptionist"));
 
 });
 
