@@ -26,7 +26,7 @@ namespace Assignment3.Pages
         {
 			Day = day.Date;
 
-            if (_context.CheckIns != null)
+            if (_context.CheckIns != null && _context.TotalBookingsPerDay != null)
             {
 				int expectedAdultGuests = _context.TotalBookingsPerDay
 					.Where(c => c.Date == Day)
