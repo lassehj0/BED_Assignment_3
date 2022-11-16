@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Assignment3.Data;
 using Assignment3.Models;
+using Mapster;
 
 namespace Assignment3.Controllers
 {
@@ -19,27 +20,64 @@ namespace Assignment3.Controllers
         public TotalBookingsPerDaysController(ApplicationDbContext context)
         {
             _context = context;
+            TypeAdapterConfig<TotalBookingsPerDay, TotalBookingsPerDay_DTO>.NewConfig().IgnoreNullValues(true);
+
         }
 
         // GET: api/TotalBookingsPerDays
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TotalBookingsPerDay>>> GetTotalBookingsPerDay()
+        public async Task<ActionResult<TotalBookingsPerDay_DTO>> GetTotalBookingsPerDay()
         {
-            return await _context.TotalBookingsPerDay.ToListAsync();
-        }
+            List<TotalBookingsPerDay> listOfBookingsPerDays = await _context.TotalBookingsPerDay.OrderByDescending(x => x.Date).ToListAsync();
 
-        // GET: api/TotalBookingsPerDays/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<TotalBookingsPerDay>> GetTotalBookingsPerDay(int id)
-        {
-            var totalBookingsPerDay = await _context.TotalBookingsPerDay.FindAsync(id);
-
-            if (totalBookingsPerDay == null)
+            var latestBooking = listOfBookingsPerDays.FirstOrDefault();
+            if (latestBooking == null)
             {
                 return NotFound();
             }
+            
+            var result = latestBooking.Adapt<TotalBookingsPerDay_DTO>();
+            result.TotalGuests = result.TotalAdults + result.TotalChildren;
 
-            return totalBookingsPerDay;
+            List<CheckIns> checkInsList = await _context.CheckIns.Where(x => x.Date == latestBooking.Date).ToListAsync();
+
+            foreach (var checkIn in checkInsList)
+            {
+                result.CheckedInAdults += checkIn.Adults;
+                result.CheckedInChildren += checkIn.Children;
+            }
+
+            result.RemainingAdults = result.TotalAdults - result.CheckedInAdults;
+            result.RemainingChildren = result.TotalChildren - result.CheckedInChildren;
+            result.RemainingGuests = result.TotalGuests - (result.CheckedInAdults + result.CheckedInChildren);
+            
+            return result;
+        }
+
+        // GET: api/TotalBookingsPerDays/5
+        [HttpGet("{date}")]
+        public async Task<ActionResult<TotalBookingsPerDay_DTO>> GetTotalBookingsPerDay(DateTime date)
+        {
+
+            var latestBooking = _context.CheckIns.Where(x => x.Date == date).FirstOrDefault();
+            if (!(latestBooking.Date == date))
+            {
+                return NotFound();
+            }
+            var result = latestBooking.Adapt<TotalBookingsPerDay_DTO>();
+
+            List<CheckIns> checkInsList = await _context.CheckIns.Where(x => x.Date == latestBooking.Date).ToListAsync();
+
+            foreach (var checkIn in checkInsList)
+            {
+                result.CheckedInAdults += checkIn.Adults;
+                result.CheckedInChildren += checkIn.Children;
+            }
+
+            result.RemainingAdults = result.TotalAdults - result.CheckedInAdults;
+            result.RemainingChildren = result.TotalChildren - result.CheckedInChildren;
+            result.RemainingGuests = result.TotalGuests - (result.CheckedInAdults + result.CheckedInChildren);
+            return result;
         }
 
         // PUT: api/TotalBookingsPerDays/5

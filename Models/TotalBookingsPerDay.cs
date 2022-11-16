@@ -15,5 +15,7 @@ namespace Assignment3.Models
 
         [Required]
         public int TotalChildren { get; set; }
+
+       
     }
 }
