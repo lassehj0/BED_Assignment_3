@@ -1,10 +1,66 @@
 ﻿@page
-@model Assignment3.Controllers.CheckInsController
+@model Assignment3.Pages.KitchenModel
+
 @{
-	ViewData["Title"] = "Kitchen";
+    ViewData["Title"] = "Kitchen";
 }
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<div class="text-center">
-	<input type="date" value="@{new DateTime();}" />
-	<p id="getit">@Model.GetCheckIns()</p>
-</div>
+
+<h1>Kitchen</h1>
+<form asp-action="Process" method="post">
+    <input type="date" name="Day" />
+    <button type="submit">Submit</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn[0].TotalGuests)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn[0].TotalAdults)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn[0].TotalChildren)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn[0].CheckedInAdults)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn[0].CheckedInChildren)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn[0].RemainingGuests)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn[0].RemainingAdults)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn[0].RemainingChildren)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CheckIn) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adults)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Children)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
