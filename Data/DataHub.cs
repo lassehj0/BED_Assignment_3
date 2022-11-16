@@ -4,9 +4,9 @@ namespace Assignment3.Data
 {
 	public class DataHub : Hub
 	{
-        public async Task Send(string message)
+        public async Task Send()
         {
-            await Clients.All.SendAsync("Send", message);
+            await Clients.All.SendAsync("ReceiveMessage");
         }
         
     }

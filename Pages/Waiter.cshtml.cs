@@ -10,37 +10,39 @@ using Assignment3.Data;
 
 namespace Assignment3.Pages
 {
-    [Authorize("WaiterOnly")]
-    public class WaiterModel : PageModel
-    {
-        private readonly Assignment3.Data.ApplicationDbContext _context;
+	[Authorize("WaiterOnly")]
+	public class WaiterModel : PageModel
+	{
+		private readonly Assignment3.Data.ApplicationDbContext _context;
+        private DataHub dh;
 
         public WaiterModel(Assignment3.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		{
+			_context = context;
+		}
 
-        public IActionResult OnGet()
-        {
-            return Page();
-        }
+		public IActionResult OnGet()
+		{
+			return Page();
+		}
 
-        [BindProperty]
-        public CheckIn CheckIn { get; set; }
+		[BindProperty]
+		public CheckIn CheckIn { get; set; }
 
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-            CheckIn.Date = DateTime.Now;
-            _context.CheckIns.Add(CheckIn);
-            await _context.SaveChangesAsync();
+		// To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
+		public async Task<IActionResult> OnPostAsync()
+		{
+			if (!ModelState.IsValid)
+			{
+				return Page();
+			}
+			CheckIn.Date = DateTime.Now;
+			_context.CheckIns.Add(CheckIn);
+			await _context.SaveChangesAsync();
+			await dh.Send();
 
-            return RedirectToPage("./Index");
-        }
-    }
+			return RedirectToPage("./Index");
+		}
+	}
 }
