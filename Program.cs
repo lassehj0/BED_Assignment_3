@@ -47,6 +47,14 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
+using (var scope = app.Services.CreateScope())
+{
+    var serviceProvider = scope.ServiceProvider;
+    var userManager = serviceProvider.GetService<UserManager<IdentityUser>>();
+    if (userManager != null)
+        SeedUsers.SeedWaiter(userManager);
+    else throw new Exception("Unable to get UserManager!");
+}
 
 
 app.Run();

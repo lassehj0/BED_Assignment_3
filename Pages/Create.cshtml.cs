@@ -1,21 +1,20 @@
-using Assignment3.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Assignment3.Controllers;
-using Assignment3.DTO;
-using Mapster;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Assignment3.Data;
+using Assignment3.Models;
 
 namespace Assignment3.Pages
 {
-    [Authorize("WaiterOnly")]
-    public class WaiterModel : PageModel
+    public class CreateModel : PageModel
     {
         private readonly Assignment3.Data.ApplicationDbContext _context;
 
-        public WaiterModel(Assignment3.Data.ApplicationDbContext context)
+        public CreateModel(Assignment3.Data.ApplicationDbContext context)
         {
             _context = context;
         }
@@ -27,12 +26,12 @@ namespace Assignment3.Pages
 
         [BindProperty]
         public CheckIn CheckIn { get; set; }
-
+        
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+          if (!ModelState.IsValid)
             {
                 return Page();
             }

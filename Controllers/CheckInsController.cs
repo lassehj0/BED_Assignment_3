@@ -23,14 +23,14 @@ namespace Assignment3.Controllers
         public CheckInsController(ApplicationDbContext context)
         {
             _context = context;
-            TypeAdapterConfig<List<CheckIns>, List<CheckInsDTO>>.NewConfig();
-            TypeAdapterConfig<CheckInsDTO, CheckIns>.NewConfig();
+            TypeAdapterConfig<List<CheckIn>, List<CheckInsDTO>>.NewConfig();
+            TypeAdapterConfig<CheckInsDTO, CheckIn>.NewConfig();
         }
 
         // GET: api/CheckIns
         [Authorize("ReceptionOnly")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CheckIns>>> GetCheckIns()
+        public async Task<ActionResult<IEnumerable<CheckIn>>> GetCheckIns()
         {
             return await _context.CheckIns.ToListAsync();
         }
@@ -52,9 +52,9 @@ namespace Assignment3.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Authorize("WaiterOnly")]
         [HttpPost]
-        public async Task<ActionResult<CheckIns>> PostCheckIns(CheckInsDTO checkInsDTO)
+        public async Task<ActionResult<CheckIn>> PostCheckIn(CheckInsDTO checkInsDTO)
         {
-            var checkIns = checkInsDTO.Adapt<CheckIns>();
+            var checkIns = checkInsDTO.Adapt<CheckIn>();
             checkIns.Date = new DateTime();
             _context.CheckIns.Add(checkIns);
             await _context.SaveChangesAsync();
