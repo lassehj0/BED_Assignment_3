@@ -9,7 +9,9 @@
 	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<form method="post" asp-page="Waiter">
+<button id="hej">bruh</button>
+
+<form method="post" asp-page="Waiter" onsubmit="subb()">
 	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 	<div class="form-group">
@@ -37,5 +39,7 @@
 	</div>
 
 	<button type="submit" class="btn btn-primary">Submit</button>
+
+	<p></p>
 
 </form>

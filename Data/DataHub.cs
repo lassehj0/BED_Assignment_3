@@ -8,6 +8,5 @@ namespace Assignment3.Data
         {
             await Clients.All.SendAsync("ReceiveMessage");
         }
-        
     }
 }

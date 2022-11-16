@@ -7,6 +7,7 @@ using Assignment3.DTO;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 using Assignment3.Data;
+using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Assignment3.Pages
 {
@@ -14,12 +15,11 @@ namespace Assignment3.Pages
     public class WaiterModel : PageModel
     {
         private readonly Assignment3.Data.ApplicationDbContext _context;
-        private readonly Assignment3.Data.DataHub _dataHub;
+		HubConnection connection = new HubConnectionBuilder().WithUrl("https://localhost:7257/DataHub").Build();
 
-        public WaiterModel(Assignment3.Data.ApplicationDbContext context, Assignment3.Data.DataHub dataHub)
+        public WaiterModel(Assignment3.Data.ApplicationDbContext context)
         {
             _context = context;
-            _dataHub = dataHub;
         }
     
         public IActionResult OnGet()
@@ -41,9 +41,11 @@ namespace Assignment3.Pages
 			CheckIn.Date = DateTime.Now;
 			_context.CheckIns.Add(CheckIn);
 			await _context.SaveChangesAsync();
-			await dh.Send();
+			await connection.StartAsync();
+			await connection.InvokeAsync("Send");
 
-			return RedirectToPage("./Index");
+			//return RedirectToPage("./Index");
+			return Page();
 		}
 	}
 }
