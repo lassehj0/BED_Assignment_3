@@ -8,7 +8,7 @@ namespace Assignment3.Data
        
             public static void SeedWaiter(UserManager<IdentityUser> userManager)
             {
-                const string WaiterEmail = "waiter@hotelcalifornia";
+                const string WaiterEmail = "waiter@hotelcalifornia.com";
                 const string WaiterPassword = "WaiterPassword1234#";
                 if (userManager == null)
                     throw new ArgumentNullException(nameof(userManager));
