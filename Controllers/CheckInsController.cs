@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Assignment3.Data;
 using Assignment3.Models;
+using MapsterMapper;
+using Mapster;
+using Assignment3.DTO;
 
 namespace Assignment3.Controllers
 {
@@ -19,6 +22,8 @@ namespace Assignment3.Controllers
         public CheckInsController(ApplicationDbContext context)
         {
             _context = context;
+            TypeAdapterConfig<CheckIns, CheckInsDTO>.NewConfig();
+            TypeAdapterConfig<CheckInsDTO, CheckIns>.NewConfig();
         }
 
         // GET: api/CheckIns
@@ -28,76 +33,30 @@ namespace Assignment3.Controllers
             return await _context.CheckIns.ToListAsync();
         }
 
-        // GET: api/CheckIns/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<CheckIns>> GetCheckIns(int id)
+        [HttpGet("{Date}")]
+        public async Task<ActionResult<CheckInsDTO>> GetCheckInsDTO(int date)
         {
-            var checkIns = await _context.CheckIns.FindAsync(id);
+            var checkIns = await _context.CheckIns.FindAsync(date);
 
             if (checkIns == null)
             {
                 return NotFound();
             }
 
-            return checkIns;
-        }
-
-        // PUT: api/CheckIns/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCheckIns(int id, CheckIns checkIns)
-        {
-            if (id != checkIns.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(checkIns).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CheckInsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return checkIns.Adapt<CheckInsDTO>();
         }
 
         // POST: api/CheckIns
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CheckIns>> PostCheckIns(CheckIns checkIns)
+        public async Task<ActionResult<CheckIns>> PostCheckIns(CheckInsDTO checkInsDTO)
         {
+            var checkIns = checkInsDTO.Adapt<CheckIns>();
+            checkIns.Date = new DateTime();
             _context.CheckIns.Add(checkIns);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCheckIns", new { id = checkIns.Id }, checkIns);
-        }
-
-        // DELETE: api/CheckIns/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCheckIns(int id)
-        {
-            var checkIns = await _context.CheckIns.FindAsync(id);
-            if (checkIns == null)
-            {
-                return NotFound();
-            }
-
-            _context.CheckIns.Remove(checkIns);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool CheckInsExists(int id)
