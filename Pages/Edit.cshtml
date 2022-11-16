@@ -7,32 +7,27 @@
 
 <h1>Edit</h1>
 
-<h4>CheckIn</h4>
+<h4>TotalBookingsPerDay</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CheckIn.Id" />
+            <input type="hidden" asp-for="TotalBookingsPerDay.Id" />
             <div class="form-group">
-                <label asp-for="CheckIn.RoomNumber" class="control-label"></label>
-                <input asp-for="CheckIn.RoomNumber" class="form-control" />
-                <span asp-validation-for="CheckIn.RoomNumber" class="text-danger"></span>
+                <label asp-for="TotalBookingsPerDay.Date" class="control-label"></label>
+                <input asp-for="TotalBookingsPerDay.Date" class="form-control" />
+                <span asp-validation-for="TotalBookingsPerDay.Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CheckIn.Adults" class="control-label"></label>
-                <input asp-for="CheckIn.Adults" class="form-control" />
-                <span asp-validation-for="CheckIn.Adults" class="text-danger"></span>
+                <label asp-for="TotalBookingsPerDay.TotalAdults" class="control-label"></label>
+                <input asp-for="TotalBookingsPerDay.TotalAdults" class="form-control" />
+                <span asp-validation-for="TotalBookingsPerDay.TotalAdults" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CheckIn.Children" class="control-label"></label>
-                <input asp-for="CheckIn.Children" class="form-control" />
-                <span asp-validation-for="CheckIn.Children" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CheckIn.Date" class="control-label"></label>
-                <input asp-for="CheckIn.Date" class="form-control" />
-                <span asp-validation-for="CheckIn.Date" class="text-danger"></span>
+                <label asp-for="TotalBookingsPerDay.TotalChildren" class="control-label"></label>
+                <input asp-for="TotalBookingsPerDay.TotalChildren" class="form-control" />
+                <span asp-validation-for="TotalBookingsPerDay.TotalChildren" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

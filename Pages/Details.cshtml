@@ -8,36 +8,30 @@
 <h1>Details</h1>
 
 <div>
-    <h4>CheckIn</h4>
+    <h4>TotalBookingsPerDay</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckIn.RoomNumber)
+            @Html.DisplayNameFor(model => model.TotalBookingsPerDay.Date)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CheckIn.RoomNumber)
+            @Html.DisplayFor(model => model.TotalBookingsPerDay.Date)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckIn.Adults)
+            @Html.DisplayNameFor(model => model.TotalBookingsPerDay.TotalAdults)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CheckIn.Adults)
+            @Html.DisplayFor(model => model.TotalBookingsPerDay.TotalAdults)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckIn.Children)
+            @Html.DisplayNameFor(model => model.TotalBookingsPerDay.TotalChildren)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CheckIn.Children)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CheckIn.Date)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CheckIn.Date)
+            @Html.DisplayFor(model => model.TotalBookingsPerDay.TotalChildren)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.CheckIn?.Id">Edit</a> |
+    <a asp-page="./Edit" asp-route-id="@Model.TotalBookingsPerDay?.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
 </div>

@@ -21,21 +21,21 @@ namespace Assignment3.Pages
         }
 
         [BindProperty]
-        public CheckIn CheckIn { get; set; } = default!;
+        public TotalBookingsPerDay TotalBookingsPerDay { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.CheckIns == null)
+            if (id == null || _context.TotalBookingsPerDay == null)
             {
                 return NotFound();
             }
 
-            var checkin =  await _context.CheckIns.FirstOrDefaultAsync(m => m.Id == id);
-            if (checkin == null)
+            var totalbookingsperday =  await _context.TotalBookingsPerDay.FirstOrDefaultAsync(m => m.Id == id);
+            if (totalbookingsperday == null)
             {
                 return NotFound();
             }
-            CheckIn = checkin;
+            TotalBookingsPerDay = totalbookingsperday;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace Assignment3.Pages
                 return Page();
             }
 
-            _context.Attach(CheckIn).State = EntityState.Modified;
+            _context.Attach(TotalBookingsPerDay).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace Assignment3.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CheckInExists(CheckIn.Id))
+                if (!TotalBookingsPerDayExists(TotalBookingsPerDay.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace Assignment3.Pages
             return RedirectToPage("./Index");
         }
 
-        private bool CheckInExists(int id)
+        private bool TotalBookingsPerDayExists(int id)
         {
-          return _context.CheckIns.Any(e => e.Id == id);
+          return _context.TotalBookingsPerDay.Any(e => e.Id == id);
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Microsoft.Build.Framework;
 
-namespace Assignment3.Models
+namespace Assignment3.DTO
 {
-	public class TotalBookingsPerDay_Reception_DTO
-	{
+    public class TotalBookingsPerDay_Reception_DTO
+    {
 
-		
+
 
         [Required]
         public int TotalAdults { get; set; }

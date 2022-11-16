@@ -20,40 +20,40 @@ namespace Assignment3.Pages
         }
 
         [BindProperty]
-      public CheckIn CheckIn { get; set; }
+      public TotalBookingsPerDay TotalBookingsPerDay { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.CheckIns == null)
+            if (id == null || _context.TotalBookingsPerDay == null)
             {
                 return NotFound();
             }
 
-            var checkin = await _context.CheckIns.FirstOrDefaultAsync(m => m.Id == id);
+            var totalbookingsperday = await _context.TotalBookingsPerDay.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (checkin == null)
+            if (totalbookingsperday == null)
             {
                 return NotFound();
             }
             else 
             {
-                CheckIn = checkin;
+                TotalBookingsPerDay = totalbookingsperday;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.CheckIns == null)
+            if (id == null || _context.TotalBookingsPerDay == null)
             {
                 return NotFound();
             }
-            var checkin = await _context.CheckIns.FindAsync(id);
+            var totalbookingsperday = await _context.TotalBookingsPerDay.FindAsync(id);
 
-            if (checkin != null)
+            if (totalbookingsperday != null)
             {
-                CheckIn = checkin;
-                _context.CheckIns.Remove(CheckIn);
+                TotalBookingsPerDay = totalbookingsperday;
+                _context.TotalBookingsPerDay.Remove(TotalBookingsPerDay);
                 await _context.SaveChangesAsync();
             }
 

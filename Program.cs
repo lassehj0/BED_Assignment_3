@@ -54,6 +54,9 @@ using (var scope = app.Services.CreateScope())
     if (userManager != null)
         SeedUsers.SeedWaiter(userManager);
     else throw new Exception("Unable to get UserManager!");
+    if (userManager != null)
+        SeedUsers.SeedReceptionist(userManager);
+    else throw new Exception("Unable to get UserManager!");
 }
 
 

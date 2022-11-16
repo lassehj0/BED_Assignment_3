@@ -9,6 +9,7 @@ using Assignment3.Data;
 using Assignment3.Models;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
+using Assignment3.DTO;
 
 namespace Assignment3.Controllers
 {
