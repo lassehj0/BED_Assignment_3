@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSignalR();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -46,6 +47,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapHub<DataHub>("/DataHub");
+
 app.MapRazorPages();
 using (var scope = app.Services.CreateScope())
 {
@@ -58,6 +61,5 @@ using (var scope = app.Services.CreateScope())
         SeedUsers.SeedReceptionist(userManager);
     else throw new Exception("Unable to get UserManager!");
 }
-
 
 app.Run();

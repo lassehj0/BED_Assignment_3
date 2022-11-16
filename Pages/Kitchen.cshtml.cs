@@ -1,9 +1,11 @@
+using Assignment3.DTO;
 using Assignment3.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Assignment3.DTO;
+
 
 namespace Assignment3.Pages
 {
@@ -17,7 +19,6 @@ namespace Assignment3.Pages
 		}
 
 		public TotalBookingsPerDay_Kitchen_DTO CheckIn { get; set; } = new TotalBookingsPerDay_Kitchen_DTO();
-
 
 		[BindProperty]
 		public DateTime Day { get; set; }
@@ -39,12 +40,12 @@ namespace Assignment3.Pages
 				int totalExpectedGuests = expectedAdultGuests + expectedChildGuests;
 
 				int adultsCheckedIn = _context.CheckIns
-					.Where(c => c.Date == Day)
+					.Where(c => c.Date.Date == Day.Date)
 					.Select(c => c.Adults)
 					.Sum();
 
                 int childrenCheckedIn = _context.CheckIns
-                    .Where(c => c.Date == Day)
+                    .Where(c => c.Date.Date == Day.Date)
                     .Select(c => c.Children)
                     .Sum();
 
