@@ -8,3 +8,29 @@
 	<h1 class="display-4">Waiter</h1>
 	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<form method="post" asp-page="Waiter">
+	
+	<div class="form-group">
+		<label for="Room_No">Room Number</label>
+		<input type="text" class="form-control" id="Room_No" name="Room_No" placeholder="Enter Room Number">
+		<small id="Room_No" class="form-text text-muted">Please enter the Room Number</small>
+	</div>
+	
+	<div class="form-group">
+		<label for="Adults">Adults</label>
+		<input type="text" class="form-control" id="Adults" name="Adults" placeholder="Enter Adults">
+		<small id="Adults" class="form-text text-muted">Please enter the Number of Adults</small>
+
+	</div>
+	
+	<div class="form-group">
+		<label for="Children">Children</label>
+		<input type="text" class="form-control" id="Children" name="Children" placeholder="Enter Children">
+		<small id="Children" class="form-text text-muted">Please enter the Number of Children</small>
+
+	</div>
+	
+	<button type="submit" class="btn btn-primary">Submit</button>
+
+</form>

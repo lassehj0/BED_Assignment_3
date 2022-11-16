@@ -11,7 +11,7 @@ namespace Assignment3.Data
         {
         }
 
-        public DbSet<CheckIns> CheckIns { get; set; }
+        public DbSet<CheckIn> CheckIns { get; set; }
         public DbSet<TotalBookingsPerDay> TotalBookingsPerDay { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.Build.Framework;
 
 namespace Assignment3.Models
 {
-	public class CheckIns
+	public class CheckIn
 	{
         public int Id { get; set; }
 

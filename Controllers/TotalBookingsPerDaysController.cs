@@ -42,7 +42,7 @@ namespace Assignment3.Controllers
             var result = latestBooking.Adapt<TotalBookingsPerDay_Kitchen_DTO>();
             result.TotalGuests = result.TotalAdults + result.TotalChildren;
 
-            List<CheckIns> checkInsList = await _context.CheckIns.Where(x => x.Date == latestBooking.Date).ToListAsync();
+            List<CheckIn> checkInsList = await _context.CheckIns.Where(x => x.Date == latestBooking.Date).ToListAsync();
 
             foreach (var checkIn in checkInsList)
             {
@@ -69,7 +69,7 @@ namespace Assignment3.Controllers
             }
             var result = latestBooking.Adapt<TotalBookingsPerDay_Kitchen_DTO>();
 
-            List<CheckIns> checkInsList = await _context.CheckIns.Where(x => x.Date == latestBooking.Date).ToListAsync();
+            List<CheckIn> checkInsList = await _context.CheckIns.Where(x => x.Date == latestBooking.Date).ToListAsync();
 
             foreach (var checkIn in checkInsList)
             {

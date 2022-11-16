@@ -1,0 +1,46 @@
+﻿@page
+@model Assignment3.Pages.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CheckIn</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckIn.RoomNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckIn.RoomNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckIn.Adults)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckIn.Adults)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckIn.Children)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckIn.Children)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.CheckIn.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CheckIn.Date)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="CheckIn.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>
